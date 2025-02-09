@@ -36,7 +36,7 @@
     </div>
     <div class="input-container">
       <div>
-        <textarea class="textarea textarea-primary" id="error-box" placeholder="ErrorBox"></textarea>
+        <textarea class="textarea textarea-primary mb-1" id="error-box" placeholder="ErrorBox"></textarea>
         <div>
           <button class="btn btn-info" onclick="getText()">Submit</button>
           <button class="btn btn-error">Reset</button>
@@ -44,6 +44,10 @@
       </div>
     </div>
   </main>
+
+  <div id="device-error" style="display: none;">
+    This Website is only available on PC or Laptops
+  </div>  
 
   <script>
     let stackTrace = "";
