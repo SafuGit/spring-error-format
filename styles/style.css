@@ -1,0 +1,22 @@
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.response-container {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 24px;
+  margin-bottom: 50px;
+}
+
+#error-box {
+  width: 50vw;
+}
+
+.card-container {
+  margin-right: 24px;
+}

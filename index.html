@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spring Error Formatter</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <header>
+    <div class="navbar bg-base-100">
+      <div class="navbar-start">
+      </div>
+      <div class="navbar-center">
+        <a class="btn btn-ghost text-2xl">Spring Error Formatter</a>
+      </div>
+      <div class="navbar-end">
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="response-container">
+      <div class="card-container">
+        <div class="card bg-neutral text-neutral-content w-96">
+          <div class="card-body items-center text-center">
+            <h2 class="card-title">Response</h2>
+            <p id="response-box">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis vel non eos nostrum, ex soluta sint pariatur reiciendis natus ut sit ratione aliquam hic inventore unde quasi quod dignissimos itaque ducimus et expedita veniam maxime labore. Et iste excepturi dolorem nihil quam consequatur perferendis unde. Qui dolores magnam ipsum animi!</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-container">
+        <div class="card bg-neutral text-neutral-content w-96">
+          <div class="card-body items-center text-center">
+            <h2 class="card-title">Stack Trace</h2>
+            <p id="stack-trace-box">We are using cookies for no reason.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="input-container">
+      <div>
+        <textarea class="textarea textarea-primary" id="error-box" placeholder="ErrorBox"></textarea>
+        <div>
+          <button class="btn btn-info">Submit</button>
+          <button class="btn btn-error">Reset</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
