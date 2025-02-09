@@ -87,11 +87,15 @@
 
         stackTrace = stackTraceMatch ? stackTraceMatch.join('\n') : "No stack trace available.";
 
-        document.getElementById("response-box").textContent = message;
+        var responseBox = document.getElementById("response-box");
+        responseBox.textContent = message;
+        responseBox.style.color = "inherit";
         document.getElementById("stack-trace-btn").style.display = "block";
       } catch (error) {
         console.log(error);
-        document.getElementById("response-box").textContent = error.message;
+        var responseBox = document.getElementById("response-box");
+        responseBox.textContent = error.message;
+        responseBox.style.color = "#FF3333";
         document.getElementById("stack-trace-btn").style.display = "none";
       }
     }
