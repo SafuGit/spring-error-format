@@ -1,0 +1,19 @@
+{
+  "name": "spring-error-format",
+  "version": "1.0.0",
+  "description": "Error Formatter for Springboots big errors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SafuGit/spring-error-format.git"
+  },
+  "author": "Safwan Sadid",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SafuGit/spring-error-format/issues"
+  },
+  "homepage": "https://github.com/SafuGit/spring-error-format#readme"
+}

@@ -21,6 +21,11 @@
   margin-right: 24px;
 }
 
+#response-box {
+  width: 100%;
+  word-wrap: break-word;
+}
+
 @media screen and (max-width: 768px) {
   #device-error {
     display: flex !important;
