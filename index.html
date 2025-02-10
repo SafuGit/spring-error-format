@@ -61,7 +61,7 @@
 
     function fetchApi(errorText) {
       let apiKey;
-      fetch('./netlify/functions/getKey')
+      fetch('/.netlify/functions/getKey')
         .then(res => res.json())
         .then(data => {
           apiKey = data;
