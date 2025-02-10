@@ -104,6 +104,7 @@
         document.getElementById("stack-trace-form").addEventListener("submit", function(event) {
           localStorage.setItem("stackTrace", stackTrace);
         });
+        stackTraceToList();
         document.getElementById("stack-trace-btn").style.display = "block";
       } catch (error) {
         console.log(error);
@@ -112,6 +113,12 @@
         responseBox.style.color = "#FF3333";
         document.getElementById("stack-trace-btn").style.display = "none";
       }
+    }
+
+    function stackTraceToList() {
+      const stackTraceArray = stackTrace.split("\n").map(line => line.trim());
+
+      localStorage.setItem("stackTraceArray", JSON.stringify(stackTraceArray));
     }
 
     function insertDemo() {

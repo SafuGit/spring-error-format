@@ -22,7 +22,9 @@
 
   <script>
     const stackTraceLoc = localStorage.getItem("stackTrace");
-    console.log(stackTraceLoc);
+    const stackTraceArray = JSON.parse(localStorage.getItem("stackTraceArray"));
+    // console.log(stackTraceLoc);
+    console.log(stackTraceArray);
   </script>
 </body>
 </html>
