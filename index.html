@@ -44,6 +44,7 @@
           <button class="btn btn-info" onclick="getText()">Submit</button>
           <button class="btn btn-error mr-2">Reset</button>
           <button class="btn btn-outline btn-warning" onclick="insertDemo()">Get Demo Data</button>
+          <!-- <button onclick="fetchApi()">Api Call</button> -->
         </div>
       </div>
     </div>
@@ -55,6 +56,36 @@
 
   <script>
     let stackTrace = "";
+    let data;
+
+    function fetchApi(errorText) {
+      let apiKey;
+      fetch('./netlify/functions/getKey')
+        .then(res => res.json())
+        .then(data => {
+          apiKey = data;
+        })
+        .catch(error => console.error("Error fetching API key:", error));
+
+      fetch(
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "contents": [{
+              "parts":[{"text": "Seperate the Main Messages of this error from The stack trace and write it & explain the error, Dont Specify how to fix it but explain the error given. Dont use any text styling like **, just add linebreaks to specify headings" + "The Error Is:- \n" + errorText}]
+            }]
+          })
+        }
+      ).then(res => res.json()).then(result => {
+        data = result;
+        message = data["candidates"][0]["content"]["parts"][0]["text"];
+        format(errorText, message);
+      })
+    }
 
     function getText() {
       var errorTextElem = document.getElementById("error-box");
@@ -63,49 +94,51 @@
         console.log(null);
       } else {
         // console.log(errorText);
-        format(errorText);
+        fetchApi(errorText);
       }
     }
 
-    function format(text) {
+    function format(text, message) {
       try {
-        const messageRegex = /^.*?:(.*?)(?=\n)/g; 
-        const stackTraceRegex = /at .+/g; 
-  
-        const messageMatches = [...text.matchAll(messageRegex)];
-        if (messageMatches.length == 0) {
-          console.log("No message found. messageMatch");
-          throw new Error("No message found.");
-        }
+        if (data != null || data != undefined) {
+          console.log("AI RESPONSE" + message);
+          // const messageRegex = /^.*?:(.*?)(?=\n)/g; 
+          const stackTraceRegex = /at .+/g; 
+    
+          // const messageMatches = [...text.matchAll(messageRegex)];
+          // if (messageMatches.length == 0) {
+          //  console.log("No message found. messageMatch");
+          //  throw new Error("No message found.");
+          //}
 
-        const stackTraceMatch = text.match(stackTraceRegex);
-        if (stackTraceMatch == null) {
-          console.log("No stack trace found. stackTraceMatch");
-          throw new Error("No stack trace found.");
-        }
-
-        var message = "";
-        messageMatches.forEach(match => {
-          for (let i = 1; i < match.length; i++) {  // Start from 1 to skip the whole match
-            console.log(match);
-            message += `${match[i].trim()} \n`;
+          const stackTraceMatch = text.match(stackTraceRegex);
+          if (stackTraceMatch == null) {
+            console.log("No stack trace found. stackTraceMatch");
+            throw new Error("No stack trace found.");
           }
-        });
-        console.log(message);
 
-        stackTrace = stackTraceMatch ? stackTraceMatch.join('\n') : "No stack trace available.";
+          // messageMatches.forEach(match => {
+          //  for (let i = 1; i < match.length; i++) {  // Start from 1 to skip the whole match
+          //    console.log(match);
+          //    message += `${match[i].trim()} \n`;
+          //  }
+          // });
+          // console.log(message);
 
-        var responseBox = document.getElementById("response-box");
-        responseBox.textContent = message;
-        responseBox.style.color = "inherit";
+          stackTrace = stackTraceMatch ? stackTraceMatch.join('\n') : "No stack trace available.";
 
-        var stackTraceInput = document.getElementById("stack-trace-input");
-        stackTraceInput.value = stackTrace;
-        document.getElementById("stack-trace-form").addEventListener("submit", function(event) {
-          localStorage.setItem("stackTrace", stackTrace);
-        });
-        stackTraceToList();
-        document.getElementById("stack-trace-btn").style.display = "block";
+          var responseBox = document.getElementById("response-box");
+          responseBox.textContent = message;
+          responseBox.style.color = "inherit";
+
+          var stackTraceInput = document.getElementById("stack-trace-input");
+          stackTraceInput.value = stackTrace;
+          document.getElementById("stack-trace-form").addEventListener("submit", function(event) {
+            localStorage.setItem("stackTrace", stackTrace);
+          });
+          stackTraceToList();
+          document.getElementById("stack-trace-btn").style.display = "block";
+        } 
       } catch (error) {
         console.log(error);
         var responseBox = document.getElementById("response-box");
@@ -132,7 +165,7 @@
             console.log(null);
           } else {
             // console.log(errorText);
-            format(errorText);
+            fetchApi(errorText);
           }
         })
     }
