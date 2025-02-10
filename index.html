@@ -14,7 +14,7 @@
       <div class="navbar-start">
       </div>
       <div class="navbar-center">
-        <a class="btn btn-ghost text-2xl">Spring Error Formatter</a>
+        <a class="btn btn-ghost text-2xl" href="./index.html">Spring Error Formatter</a>
       </div>
       <div class="navbar-end">
       </div>
@@ -29,7 +29,10 @@
             <p id="response-box">Please enter your Error to see the Main Message of the Error.</p>
           </div>
           <div class="card-actions justify-end mr-3 mb-3">
-            <button class="btn btn-primary" style="display: none;" id="stack-trace-btn">Show StackTrace</button>
+            <form action="./stackTrace.html" id="stack-trace-form">
+              <input type="hidden" id="stack-trace-input">
+              <button class="btn btn-primary" style="display: none;" id="stack-trace-btn">Show StackTrace</button>
+            </form>
           </div>
         </div>
       </div> 
@@ -47,7 +50,7 @@
 
   <div id="device-error" style="display: none;">
     This Website is only available on PC or Laptops
-  </div>  
+  </div>
 
   <script>
     let stackTrace = "";
@@ -94,6 +97,12 @@
         var responseBox = document.getElementById("response-box");
         responseBox.textContent = message;
         responseBox.style.color = "inherit";
+
+        var stackTraceInput = document.getElementById("stack-trace-input");
+        stackTraceInput.value = stackTrace;
+        document.getElementById("stack-trace-form").addEventListener("submit", function(event) {
+          localStorage.setItem("stackTrace", stackTrace);
+        });
         document.getElementById("stack-trace-btn").style.display = "block";
       } catch (error) {
         console.log(error);
