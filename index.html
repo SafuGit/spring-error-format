@@ -42,7 +42,8 @@
         <textarea class="textarea textarea-primary mb-1" id="error-box" placeholder="ErrorBox"></textarea>
         <div>
           <button class="btn btn-info" onclick="getText()">Submit</button>
-          <button class="btn btn-error">Reset</button>
+          <button class="btn btn-error mr-2">Reset</button>
+          <button class="btn btn-outline btn-warning" onclick="insertDemo()">Get Demo Data</button>
         </div>
       </div>
     </div>
@@ -111,6 +112,22 @@
         responseBox.style.color = "#FF3333";
         document.getElementById("stack-trace-btn").style.display = "none";
       }
+    }
+
+    function insertDemo() {
+      fetch('./demo.txt')
+        .then(response => response.text())
+        .then((text) => {
+          var errorTextElem = document.getElementById("error-box");
+          errorTextElem.value = text;
+          errorText = errorTextElem.value;
+          if (errorText == null || errorText.length == 0) {
+            console.log(null);
+          } else {
+            // console.log(errorText);
+            format(errorText);
+          }
+        })
     }
   </script>
 
