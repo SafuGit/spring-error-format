@@ -65,7 +65,6 @@
         .then(res => res.json())
         .then(data => {
           apiKey = data["apiKey"];
-          console.log("API Key:", apiKey);
           fetch(
             'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey,
             {
@@ -80,7 +79,6 @@
               })
             }
           ).then(res => res.json()).then(result => {
-            console.log(result);
             data = result;
             message = data["candidates"][0]["content"]["parts"][0]["text"];
             format(errorText, message, data);
