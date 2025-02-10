@@ -20,6 +20,47 @@
     </div>
   </header>
 
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const stackTraceArray = JSON.parse(localStorage.getItem("stackTraceArray")) || [];
+
+      const source = document.getElementById("entry-template").innerHTML;
+
+      const template = Handlebars.compile(source);
+
+      const data = {
+        title: "Spring Stack Trace",
+        data: stackTraceArray 
+      };
+
+      const html = template(data);
+
+      document.body.insertAdjacentHTML("beforeend", html);
+    });
+  </script>
+  
+
+  <script id="entry-template" type="text/x-handlebars-template">
+    <div class="flex flex-col items-center mt-6">
+
+      <h1 class="text-3xl font-bold text-primary mb-6">📜 {{title}}</h1>
+      <div class="overflow-y-auto max-h-96 w-full md:w-3/4 p-4 bg-neutral rounded-lg shadow-lg">
+        <ul class="space-y-2">
+          {{#each data}}
+            <li class="p-2 bg-base-200 rounded-lg transition duration-200 ease-in-out 
+                     bg-base-200 hover:bg-base-300 hover:cursor-pointer">
+              <span class="text-accent font-semibold">{{@index}}:</span> 
+              <span class="text-sm text-secondary break-all">{{this}}</span>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+      <a href="./index.html" class="btn btn-primary mt-8"> Back </a>
+    </div>
+  </script>
+
   <script>
     const stackTraceLoc = localStorage.getItem("stackTrace");
     const stackTraceArray = JSON.parse(localStorage.getItem("stackTraceArray"));
