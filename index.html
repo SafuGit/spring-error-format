@@ -64,17 +64,19 @@
         method: "GET",
       })
       .then((response) => {
-        // Check if the response is ok (status 200-299)
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.json(); // Wait for the response body to be parsed as JSON
+        return response.json();
       })
       .then((data) => {
-        console.log(data); // Log the actual response data
+        message = data["response"]
+        aiData = data["aiData"]
+        console.log(data);
+        format(errorText, message, aiData); 
       })
       .catch((error) => {
-        console.error('There was an error with the fetch operation:', error); // Log any errors
+        console.error('There was an error with the fetch operation:', error); 
       });
     }
 

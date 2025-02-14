@@ -44,7 +44,7 @@ exports.handler = async function (event, context) {
                 "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ response: message }),
+            body: JSON.stringify({ response: message, aiData: result }),
         };
 
     } catch (error) {
