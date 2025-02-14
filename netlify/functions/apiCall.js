@@ -1,6 +1,8 @@
 exports.handler = async function (event, context) {
     const errorText = event.queryStringParameters.errorText;
+    console.log(errorText + " errorText");
     const apiKey = process.env.API_KEY;
+    console.log(apiKey.length + " apiKey");
     fetch(
     'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey,
     {
@@ -17,6 +19,7 @@ exports.handler = async function (event, context) {
     ).then(res => res.json()).then(result => {
         data = result;
         message = data["candidates"][0]["content"]["parts"][0]["text"];
+        console.log(message)
         return {
             statusCode: 200,
             headers: {
